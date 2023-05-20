@@ -6,94 +6,97 @@
   <title>Terminal</title>
   <style>
     .terminal {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  background-color: black;
-  color: white;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.output {
-  flex-grow: 1;
-  overflow-y: auto;
-  font-family: monospace;
-}
-
-.input-container {
-  display: flex;
-  align-items: center;
-}
-
-.input-container span {
-  color: lime;
-  margin-right: 5px;
-}
-
-.input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: white;
-  font-family: monospace;
-}
-
-    #output {
-      /* Styles for the terminal output */
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      box-sizing: border-box;
     }
-    
-    #input-bar {
-      /* Styles for the input bar */
+
+    .output {
+      flex-grow: 1;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-container span {
+      color: lime;
+      margin-right: 5px;
+    }
+
+    .input {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-family: monospace;
     }
   </style>
 </head>
 
 <body>
-<div id="terminal" class="terminal">
-  <pre id="output" class="output"></pre>
-  <div class="input-container">
-    <span>$</span>
-    <input id="input" class="input" type="text" autofocus />
+  <div id="terminal" class="terminal">
+    <pre id="output" class="output"></pre>
+    <div class="input-container">
+      <span>$</span>
+      <input id="input" class="input" type="text" autofocus />
+    </div>
   </div>
-</div>
-
 
   <script>
-function processCommand(command) {
-  switch (command) {
-    case 'help':
-      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum';
-      break;
-    case 'time':
-      const date = new Date();
-      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-      break;
-    case 'greet':
-      terminalOutput.textContent += '\nHello there!';
-      break;
-    case 'loremipsum':
-      performCustomAction();
-      break;
-    default:
-      terminalOutput.textContent += `\nCommand not found: ${command}`;
-      break;
-  }
+    const terminalOutput = document.getElementById('output');
+    const terminalInput = document.getElementById('input');
 
-  // Scroll to the bottom of the terminal
-  terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
+    terminalInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        terminalInput.value = '';
 
-function performCustomAction() {
-  // Write your code here to define what the "loremipsum" command should do
-  // For example:
-  terminalOutput.textContent += '\nCustom action executed!';
-}
+        // Process the command
+        processCommand(command);
+      }
+    });
 
+    function processCommand(command) {
+      switch (command) {
+        case 'help':
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum';
+          break;
+        case 'time':
+          const date = new Date();
+          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+          break;
+        case 'greet':
+          terminalOutput.textContent += '\nHello there!';
+          break;
+        case 'loremipsum':
+          performCustomAction();
+          break;
+        default:
+          terminalOutput.textContent += `\nCommand not found: ${command}`;
+          break;
+      }
+
+      // Scroll to the bottom of the terminal
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    function performCustomAction() {
+      // Write your code here to define what the "loremipsum" command should do
+      // For example:
+      terminalOutput.textContent += '\nCustom action executed!';
+    }
   </script>
 </body>
 
