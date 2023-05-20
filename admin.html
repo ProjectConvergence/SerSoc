@@ -5,7 +5,44 @@
   <meta charset="UTF-8">
   <title>Terminal</title>
   <style>
-    /* Add your desired styles for the terminal output and input here */
+    .terminal {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.output {
+  flex-grow: 1;
+  overflow-y: auto;
+  font-family: monospace;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-container span {
+  color: lime;
+  margin-right: 5px;
+}
+
+.input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: monospace;
+}
+
     #output {
       /* Styles for the terminal output */
     }
