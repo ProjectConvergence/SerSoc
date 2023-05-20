@@ -164,8 +164,16 @@ var images = [
   // Add more image names as needed
 ];
 
+var captions = [
+  "Serpent 1",
+  "Serpent 2",
+  "Serpent 3",
+  // Add more captions as needed
+];
+
 var currentIndex = 0;
 var galleryImage = document.getElementById("galleryImage");
+var imageCaption = document.getElementById("imageCaption");
 
 function changeImage(step) {
   currentIndex += step;
@@ -178,8 +186,13 @@ function changeImage(step) {
   }
 
   galleryImage.src = images[currentIndex];
+  imageCaption.textContent = captions[currentIndex];
 }
-</script>
+
+Make sure to update the captions array with the appropriate captions for each image.
+
+With these changes, the image caption will change along with the displayed image as you navigate through the gallery using the arrow buttons.
+
 </section>
  </main>
 
