@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Serpent Folk Research Society</title>
+  <link rel="icon" href="https://svgsilh.com/svg/3272088.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+     .opening-text {
+      color: #2eb82e; /* Set the desired color */
+      font-weight: bold; /* Optionally, you can apply other styles such as font-weight */
+    }
+    body {
+      background-color: #fff;
+      color: black;
+    }
+
+    section {
+      background-color: #e6e6e6;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #1a1a1a;
+    }
+
+    blockquote {
+      background-color: #000;
+      padding: 10px;
+	  color: #fff; /* Set the font color here */
+	  margin: 0; /* Reset the default margin */
+	  opacity: 0;
+    }
+	
+    blockquote p {
+      font-weight: normal;
+    }
+	
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .button {
+      padding: 10px 10px;
+      background-color: #000;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .hidden {
+      display: none;
+    }
+
+  </style>
+<script src="js/script.js"></script>
+  <script>
+    function openJournal() {
+      // Code to open the journal goes here
+      console.log("Opening journal...");
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>&#128013;Serpent Folk Research Society [SFRS]&#128013;</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Front Page</a></li>	  
+        <li><a href="research.html">Research</a></li>
+        <li><a href="gallery.html">Gallery</a></li>	
+        <li><a href="about.html">About</a></li>
+        <li><a href="admin.html">Terminal - UNLOCKED DUE TO ADMIN ACCESS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+<div class="gallery">
+  <div class="slider">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+  </div>
+  <button class="prev-button">&larr;</button>
+  <button class="next-button">&rarr;</button>
+</div>
+
+<body>
+<script>
+const slider = document.querySelector('.slider');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
+
+prevButton.addEventListener('click', () => {
+  slider.scrollBy({
+    left: -slider.offsetWidth,
+    behavior: 'smooth'
+  });
+});
+
+nextButton.addEventListener('click', () => {
+  slider.scrollBy({
+    left: slider.offsetWidth,
+    behavior: 'smooth'
+  });
+});
+
+</script>
+</section>
+ </main>
+
+<footer>
+<p>&copy; 2007 Serpent Folk Archaeological Society. All rights reserved.</p>
+</footer>
+</body>
+</html>
