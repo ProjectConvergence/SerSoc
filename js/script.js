@@ -18,7 +18,7 @@ function openJournal() {
     }
   }
 
-  fadeInNextQuote(); // Start fading in the blockquotes
+  setTimeout(fadeInNextQuote, 2000); // Wait for 2 seconds before starting to fade in the blockquotes
 }
 
 var images = [
