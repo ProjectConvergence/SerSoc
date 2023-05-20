@@ -1,72 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Terminal</title>
-    <style>
-      /* Terminal styles */
-      #terminal {
-        background-color: #000;
-        color: #fff;
-        border: 1px solid #fff;
-        width: 400px;
-        height: 300px;
-        padding: 10px;
-        font-family: monospace;
-        overflow-y: scroll;
-      }
+<html lang="en">
 
-      /* Input prompt style */
-      input {
-        background-color: transparent;
-        border: none;
-        color: #fff;
-        outline: none;
-        font-family: monospace;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="terminal">
-      <pre id="output">Welcome to the Terminal! Type 'help' for available commands.</pre>
-      <input type="text" id="input" autofocus />
+<head>
+  <meta charset="UTF-8">
+  <title>Terminal</title>
+  <style>
+    /* Add your desired styles for the terminal output and input here */
+    #output {
+      /* Styles for the terminal output */
+    }
+    
+    #input-bar {
+      /* Styles for the input bar */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="terminal">
+    <pre id="output"></pre>
+    <div id="input-bar">
+      <input id="input" type="text" placeholder="Type your command here" autofocus>
     </div>
+  </div>
 
-    <script>
-      const terminalOutput = document.getElementById('output');
-      const terminalInput = document.getElementById('input');
+  <script>
+    // Your JavaScript code here
+    // ...
 
-      terminalInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-          const command = terminalInput.value.trim();
-          terminalInput.value = '';
+    const terminalOutput = document.getElementById('output');
+    const terminalInput = document.getElementById('input');
 
-          // Process the command
-          processCommand(command);
-        }
-      });
+    terminalInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        terminalInput.value = '';
 
-      function processCommand(command) {
-        // Example commands
-        switch (command) {
-          case 'help':
-            terminalOutput.textContent += '\nAvailable commands: help, time, greet';
-            break;
-          case 'time':
-            const date = new Date();
-            terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-            break;
-          case 'greet':
-            terminalOutput.textContent += '\nHello there!';
-            break;
-          default:
-            terminalOutput.textContent += `\nCommand not found: ${command}`;
-            break;
-        }
-
-        // Scroll to the bottom of the terminal
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        // Process the command
+        processCommand(command);
       }
-    </script>
-  </body>
+    });
+
+    function processCommand(command) {
+      // Example commands
+      switch (command) {
+        case 'help':
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet';
+          break;
+        case 'time':
+          const date = new Date();
+          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+          break;
+        case 'greet':
+          terminalOutput.textContent += '\nHello there!';
+          break;
+        default:
+          terminalOutput.textContent += `\nCommand not found: ${command}`;
+          break;
+      }
+
+      // Scroll to the bottom of the terminal
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+  </script>
+</body>
+
 </html>
