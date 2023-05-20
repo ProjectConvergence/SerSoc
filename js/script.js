@@ -43,3 +43,17 @@ function changeImage(step) {
 
   galleryImage.src = images[currentIndex];
 }
+
+function performCustomAction() {
+  const quotes = [
+    "Quote 1",
+    "Quote 2",
+    "Quote 3",
+    // Add more quotes as needed
+  ];
+
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const randomQuote = quotes[randomIndex];
+
+  terminalOutput.textContent += `\nRandom quote: ${randomQuote}`;
+}
