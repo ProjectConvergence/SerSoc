@@ -60,10 +60,70 @@
 
   <script src="js/script.js"></script>
   <script>
-    const terminalOutput = document.getElementById('output');
-    const terminalInput = document.getElementById('input');
-    const snakeArt = `
-    ┏━━━┓
+const terminalOutput = document.getElementById('output');
+const terminalInput = document.getElementById('input');
+const snakeArt = `
+┏━━━┓
+┏━┳┳┳┳┫┏━┓┏━━━┓
+┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
+┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
+┏━━━━━━━┳┳┳━┳┳┳┛┗┓
+┃╰╯┈┏┓╭━┫┃┏┓┃┃┏┓┈┃
+┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
+┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
+
+terminalOutput.textContent += `\n${snakeArt}`;
+terminalOutput.textContent += '\nSFRS APPROVED!';
+
+terminalInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    const command = terminalInput.value.trim();
+    terminalInput.value = '';
+
+    // Process the command
+    processCommand(command);
+  }
+});
+
+function processCommand(command) {
+  switch (command) {
+    case 'help':
+      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
+      break;
+    case 'time':
+      const date = new Date();
+      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+      break;
+    case 'greet':
+      terminalOutput.textContent += '\nHello there!';
+      break;
+    case 'loremipsum':
+      performCustomAction();
+      break;
+    case 'snek':
+      performSnekCommand();
+      break;
+    case 'clear':
+      clearTerminal();
+      break;
+    default:
+      terminalOutput.textContent += `\nCommand not found: ${command}`;
+      break;
+  }
+
+  // Scroll to the bottom of the terminal
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function performCustomAction() {
+  // Write your code here to define what the "loremipsum" command should do
+  // For example:
+  terminalOutput.textContent += '\nCustom action executed!';
+}
+
+function performSnekCommand() {
+  const snakeArt = `
+     ┏━━━┓
 ┏━┳┳┳┳┫┏━┓┏━━━┓
 ┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
 ┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
@@ -74,62 +134,9 @@
 
   terminalOutput.textContent += `\n${snakeArt}`;
   terminalOutput.textContent += '\nSFRS APPROVED!';
+}
 
-    terminalInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        const command = terminalInput.value.trim();
-        terminalInput.value = '';
-
-        // Process the command
-        processCommand(command);
-      }
-    });
-
-    function processCommand(command) {
-      switch (command) {
-        case 'help':
-          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
-          break;
-        case 'time':
-          const date = new Date();
-          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-          break;
-        case 'greet':
-          terminalOutput.textContent += '\nHello there!';
-          break;
-        case 'loremipsum':
-          performCustomAction();
-          break;
-        default:
-          terminalOutput.textContent += `\nCommand not found: ${command}`;
-          break;
-          function performSnekCommand() {
-          // Add the "snek" command to the switch statement
-          switch (command) {
-             case 'snek':
-               performSnekCommand();
-      break;
-         case 'clear':
-      clearTerminal();
-      break;
-    default:
-      terminalOutput.textContent += `\nCommand not found: ${command}`;
-      break;
-              }
-   
-            }
-          }
-
-      // Scroll to the bottom of the terminal
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    function performCustomAction() {
-      // Write your code here to define what the "loremipsum" command should do
-      // For example:
-      terminalOutput.textContent += '\nCustom action executed!';
-    }
-    function clearTerminal() {
+function clearTerminal() {
   terminalOutput.textContent = ''; // Clear the terminal output
 }
   </script>
