@@ -20,3 +20,26 @@ function openJournal() {
 
   fadeInNextQuote(); // Start fading in the blockquotes
 }
+
+var images = [
+  "serpent1.jpg",
+  "serpent2.jpg",
+  "serpent3.jpg",
+  // Add more image names as needed
+];
+
+var currentIndex = 0;
+var galleryImage = document.getElementById("galleryImage");
+
+function changeImage(step) {
+  currentIndex += step;
+
+  // Wrap around to the beginning or end if reaching the limits
+  if (currentIndex < 0) {
+    currentIndex = images.length - 1;
+  } else if (currentIndex >= images.length) {
+    currentIndex = 0;
+  }
+
+  galleryImage.src = images[currentIndex];
+}
