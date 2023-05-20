@@ -39,7 +39,7 @@
 
     .input {
       width: 100%;
-      background-color: darkgrey;
+      background-color:transparent;
       border: none;
       outline: none;
       color: white;
@@ -109,18 +109,17 @@
           switch (command) {
              case 'snek':
                performSnekCommand();
-               break;
+      break;
          case 'clear':
       clearTerminal();
       break;
     default:
       terminalOutput.textContent += `\nCommand not found: ${command}`;
       break;
-  }
+              }
    
-              // ... other commands
-}
-      }
+            }
+          }
 
       // Scroll to the bottom of the terminal
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
@@ -131,6 +130,9 @@
       // For example:
       terminalOutput.textContent += '\nCustom action executed!';
     }
+    function clearTerminal() {
+  terminalOutput.textContent = ''; // Clear the terminal output
+}
   </script>
 </body>
 
