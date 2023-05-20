@@ -103,41 +103,6 @@ To ascertain the age of the Serpent Folk civilization, geologists meticulously s
 	  <h2>‎&#x2800;&#x2800;&#x2800;&#x2800;</h2>
 	  
 <button id="open-button" onclick="openNewPage()">ADMIN: Go to research</button>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var quotes = document.querySelectorAll("blockquote");
-    var delay = 1000; // Change this value to adjust the delay between fading in each quote (in milliseconds)
-    var fadeDuration = 1000; // Change this value to adjust the duration of the fade effect (in milliseconds)
-    var currentQuoteIndex = 0;
-
-    // Hide all blockquotes initially
-    quotes.forEach(function(quote) {
-      quote.style.opacity = 0;
-      quote.style.transition = "opacity " + fadeDuration + "ms";
-    });
-
-  function openNewPage() {
-    window.open("serpentsociety_research.html", "_blank"); // Replace "new_page.html" with the desired URL of the new page
-  }
-
-    function fadeInNextQuote() {
-      if (currentQuoteIndex < quotes.length) {
-        quotes[currentQuoteIndex].style.opacity = 1;
-        currentQuoteIndex++;
-        setTimeout(fadeInNextQuote, delay);
-      }
-    }
-
-    var openButton = document.getElementById("open-button");
-    openButton.addEventListener("click", function() {
-      openButton.style.display = "none"; // Hide the open button after clicking
-      fadeInNextQuote(); // Start fading in the blockquotes
-    });
-  });
-</script>
-
-
 	
 </section>
  </main>
