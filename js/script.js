@@ -58,32 +58,3 @@ function performCustomAction() {
   terminalOutput.textContent += `\nRandom quote: ${randomQuote}`;
 }
 
-function processCommand(command) {
-  switch (command) {
-    case 'help':
-      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum';
-      break;
-    case 'time':
-      const date = new Date();
-      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-      break;
-    case 'greet':
-      terminalOutput.textContent += '\nHello there!';
-      break;
-    case 'loremipsum':
-      performCustomAction();
-      break;
-    default:
-      terminalOutput.textContent += `\nCommand not found: ${command}`;
-      break;
-  }
-
-  // Scroll to the bottom of the terminal
-  terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
-
-function performCustomAction() {
-  // Write your code here to define what the "loremipsum" command should do
-  // For example:
-  terminalOutput.textContent += '\nCustom action executed!';
-}
