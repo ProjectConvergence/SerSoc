@@ -8,6 +8,20 @@
     body {
       background-color: black;
     }
+
+    .header {
+      background-color: darkgrey;
+      padding: 10px;
+    }
+
+    .header button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
     .terminal {
       width: 100%;
       height: 90vh;
@@ -19,8 +33,9 @@
       color: #70db70;
       padding: 6px;
       box-sizing: border-box;
-      font-size: 28px; /* Adjust the value to increase or decrease the text size */
-}
+      font-size: 28px;
+    }
+
     .output {
       flex-grow: 1;
       overflow-y: auto;
@@ -39,17 +54,20 @@
 
     .input {
       width: 100%;
-      background-color:transparent;
+      background-color: transparent;
       border: none;
       outline: none;
       color: white;
-      font-size: 23px; /* Adjust the vlaue to increease or decrease the text size */
+      font-size: 23px;
       font-family: monospace;
     }
   </style>
 </head>
 
 <body>
+  <div class="header">
+    <button onclick="goToHome()">Back to Home</button>
+  </div>
   <div id="terminal" class="terminal">
     <pre id="output" class="output"></pre>
     <div class="input-container">
@@ -58,81 +76,80 @@
     </div>
   </div>
 
-  <script src="js/script.js"></script>
   <script>
-const terminalOutput = document.getElementById('output');
-const terminalInput = document.getElementById('input');
-let loggedIn = false;
+    const terminalOutput = document.getElementById('output');
+    const terminalInput = document.getElementById('input');
+    let loggedIn = false;
+    let loadingProgress = 0;
 
-terminalInput.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    const command = terminalInput.value.trim();
-    terminalInput.value = '';
+    terminalInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        terminalInput.value = '';
 
-    // Process the command
-    processCommand(command);
-  }
-});
+        // Process the command
+        processCommand(command);
+      }
+    });
 
-function processCommand(command) {
-  if (!loggedIn) {
-    // Check username and password
-    if (!checkCredentials(command)) {
-      terminalOutput.textContent += '\nInvalid username or password.';
-      return;
+    function processCommand(command) {
+      if (!loggedIn) {
+        // Check username and password
+        if (!checkCredentials(command)) {
+          terminalOutput.textContent += '\nInvalid username or password.';
+          return;
+        }
+        loggedIn = true;
+        terminalOutput.textContent += '\nLogged in successfully.';
+        showLoadingScreen();
+        return;
+      }
+
+      switch (command) {
+        case 'help':
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
+          break;
+        case 'time':
+          const date = new Date();
+          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+          break;
+        case 'greet':
+          terminalOutput.textContent += '\nHello there!';
+          break;
+        case 'loremipsum':
+          performCustomAction();
+          break;
+        case 'snek':
+          performSnekCommand();
+          break;
+        case 'clear':
+          clearTerminal();
+          break;
+        default:
+          terminalOutput.textContent += `\nCommand not found: ${command}`;
+          break;
+      }
+
+      // Scroll to the bottom of the terminal
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
-    loggedIn = true;
-    terminalOutput.textContent += '\nLogged in successfully.';
-    terminalOutput.textContent += '\nWelcome to Serpent Terminal!';
-    terminalOutput.textContent += '\nType "help" for available commands.';
-    return;
-  }
 
-  switch (command) {
-    case 'help':
-      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
-      break;
-    case 'time':
-      const date = new Date();
-      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-      break;
-    case 'greet':
-      terminalOutput.textContent += '\nHello there!';
-      break;
-    case 'loremipsum':
-      performCustomAction();
-      break;
-    case 'snek':
-      performSnekCommand();
-      break;
-    case 'clear':
-      clearTerminal();
-      break;
-    default:
-      terminalOutput.textContent += `\nCommand not found: ${command}`;
-      break;
-  }
+    function checkCredentials(command) {
+      const credentials = command.split(' ');
+      const username = credentials[0];
+      const password = credentials[1];
 
-  // Scroll to the bottom of the terminal
-  terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
+      return username === 'admin' && password === 'snakepeoplealphaomega';
+    }
 
-function checkCredentials(command) {
-  const credentials = command.split(' ');
-  const username = credentials[0];
-  const password = credentials[1];
+    function performCustomAction() {
+      // Write your code here to define what the "loremipsum" command should do
+      // For example:
+      terminalOutput.textContent += '\nCustom action executed!';
+    }
 
-  return username === 'admin' && password === 'snakepeoplealphaomega';
-}
-
-function performCustomAction() {
-  // Write your code here to define what the "loremipsum" command should do
-  // For example:
-  terminalOutput.textContent += '\nCustom action executed!';
-}
-
-function performSnekCommand() {
-  const snakeArt = `
+    function performSnekCommand() {
+      const snakeArt = `
      ┏━━━┓
 ┏━┳┳┳┳┫┏━┓┏━━━┓
 ┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
@@ -142,14 +159,33 @@ function performSnekCommand() {
 ┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
 ┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
 
-  terminalOutput.textContent += `\n${snakeArt}`;
-  terminalOutput.textContent += '\nSFRS APPROVED!';
-}
+      terminalOutput.textContent += `\n${snakeArt}`;
+      terminalOutput.textContent += '\nSFRS APPROVED!';
+    }
 
-function clearTerminal() {
-  terminalOutput.textContent = ''; // Clear the terminal output
-}
+    function clearTerminal() {
+      terminalOutput.textContent = ''; // Clear the terminal output
+    }
 
+    function showLoadingScreen() {
+      const loadingText = 'Loading data...';
+
+      // Update loading progress every second
+      const loadingInterval = setInterval(() => {
+        terminalOutput.textContent += `\n${loadingText} ${loadingProgress}%`;
+
+        if (loadingProgress === 100) {
+          clearInterval(loadingInterval);
+          terminalOutput.textContent += '\nSign in complete. Welcome back, [username]'; // Replace [username] with the actual username
+        } else {
+          loadingProgress += 10;
+        }
+      }, 1000);
+    }
+
+    function goToHome() {
+      window.location.href = 'index.html';
+    }
   </script>
 </body>
 
