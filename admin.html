@@ -62,18 +62,6 @@
   <script>
 const terminalOutput = document.getElementById('output');
 const terminalInput = document.getElementById('input');
-const snakeArt = `
-┏━━━┓
-┏━┳┳┳┳┫┏━┓┏━━━┓
-┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
-┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
-┏━━━━━━━┳┳┳━┳┳┳┛┗┓
-┃╰╯┈┏┓╭━┫┃┏┓┃┃┏┓┈┃
-┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
-┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
-
-terminalOutput.textContent += `\n${snakeArt}`;
-terminalOutput.textContent += '\nSFRS APPROVED!';
 
 terminalInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
