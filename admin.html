@@ -63,6 +63,19 @@
   <script>
     const terminalOutput = document.getElementById('output');
     const terminalInput = document.getElementById('input');
+    const snakeArt = `
+    ┏━━━┓
+┏━┳┳┳┳┫┏━┓┏━━━┓
+┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
+┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
+┏━━━━━━━┳┳┳━┳┳┳┛┗┓
+┃╰╯┈┏┓╭━┫┃┏┓┃┃┏┓┈┃
+┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
+┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
+
+  terminalOutput.textContent += `\n${snakeArt}`;
+  terminalOutput.textContent += '\nSFRS APPROVED!';
+}
 
     terminalInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
@@ -77,7 +90,7 @@
     function processCommand(command) {
       switch (command) {
         case 'help':
-          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum';
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
           break;
         case 'time':
           const date = new Date();
@@ -93,26 +106,20 @@
           terminalOutput.textContent += `\nCommand not found: ${command}`;
           break;
           function performSnekCommand() {
-  const snakeArt = `
-    ┏━━━┓
-┏━┳┳┳┳┫┏━┓┏━━━┓
-┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
-┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
-┏━━━━━━━┳┳┳━┳┳┳┛┗┓
-┃╰╯┈┏┓╭━┫┃┏┓┃┃┏┓┈┃
-┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
-┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
-
-  terminalOutput.textContent += `\n${snakeArt}`;
-  terminalOutput.textContent += '\nSFRS APPROVED!';
-}
-
-// Add the "snek" command to the switch statement
-switch (command) {
-  case 'snek':
-    performSnekCommand();
-    break;
-  // ... other commands
+          // Add the "snek" command to the switch statement
+          switch (command) {
+             case 'snek':
+               performSnekCommand();
+               break;
+         case 'clear':
+      clearTerminal();
+      break;
+    default:
+      terminalOutput.textContent += `\nCommand not found: ${command}`;
+      break;
+  }
+   
+              // ... other commands
 }
       }
 
