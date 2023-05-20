@@ -62,6 +62,7 @@
   <script>
 const terminalOutput = document.getElementById('output');
 const terminalInput = document.getElementById('input');
+let loggedIn = false;
 
 terminalInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
@@ -74,6 +75,19 @@ terminalInput.addEventListener('keydown', function (e) {
 });
 
 function processCommand(command) {
+  if (!loggedIn) {
+    // Check username and password
+    if (!checkCredentials(command)) {
+      terminalOutput.textContent += '\nInvalid username or password.';
+      return;
+    }
+    loggedIn = true;
+    terminalOutput.textContent += '\nLogged in successfully.';
+    terminalOutput.textContent += '\nWelcome to Serpent Terminal!';
+    terminalOutput.textContent += '\nType "help" for available commands.';
+    return;
+  }
+
   switch (command) {
     case 'help':
       terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
@@ -103,6 +117,14 @@ function processCommand(command) {
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
+function checkCredentials(command) {
+  const credentials = command.split(' ');
+  const username = credentials[0];
+  const password = credentials[1];
+
+  return username === 'admin' && password === 'snakepeoplealphaomega';
+}
+
 function performCustomAction() {
   // Write your code here to define what the "loremipsum" command should do
   // For example:
@@ -127,6 +149,7 @@ function performSnekCommand() {
 function clearTerminal() {
   terminalOutput.textContent = ''; // Clear the terminal output
 }
+
   </script>
 </body>
 
