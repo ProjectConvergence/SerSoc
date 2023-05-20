@@ -91,6 +91,28 @@
         default:
           terminalOutput.textContent += `\nCommand not found: ${command}`;
           break;
+          function performSnekCommand() {
+  const snakeArt = `
+    ┏━━━┓
+┏━┳┳┳┳┫┏━┓┏━━━┓
+┃┏┫┃┃┃┃┃┏┓┃┏┓┏┓┃
+┗┛┗━┻━┻┻┛┗┻┛┗┛┃┃
+┏━━━━━━━┳┳┳━┳┳┳┛┗┓
+┃╰╯┈┏┓╭━┫┃┏┓┃┃┏┓┈┃
+┃┏╮┈┃┃┃┏┫╰┛┃┃┃┃┗┓┃
+┗┛┗┛┗┛┗┛┗━━┻┻┻┻━┛┗┛`;
+
+  terminalOutput.textContent += `\n${snakeArt}`;
+  terminalOutput.textContent += '\nSFRS APPROVED!';
+}
+
+// Add the "snek" command to the switch statement
+switch (command) {
+  case 'snek':
+    performSnekCommand();
+    break;
+  // ... other commands
+}
       }
 
       // Scroll to the bottom of the terminal
