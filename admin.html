@@ -17,12 +17,14 @@
 </head>
 
 <body>
-  <div id="terminal">
-    <pre id="output"></pre>
-    <div id="input-bar">
-      <input id="input" type="text" placeholder="Type your command here" autofocus>
-    </div>
+<div id="terminal" class="terminal">
+  <pre id="output" class="output"></pre>
+  <div class="input-container">
+    <span>$</span>
+    <input id="input" class="input" type="text" autofocus />
   </div>
+</div>
+
 
   <script>
 function processCommand(command) {
