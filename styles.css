@@ -5,6 +5,19 @@
   box-sizing: border-box;
 }
 
+pre {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+code {
+  display: block;
+  color: #70db70;
+  font-size: 28px;
+}
+
 .gallery {
   position: relative;
   width: 100%;
