@@ -82,15 +82,16 @@
     let loggedIn = false;
     let loadingProgress = 0;
 
-    terminalInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        const command = terminalInput.value.trim();
-        terminalInput.value = '';
+terminalInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' || e.key === 'Return') {
+    e.preventDefault(); // Prevent the default form submission
+    const command = terminalInput.value.trim();
+    terminalInput.value = '';
 
-        // Process the command
-        processCommand(command);
-      }
-    });
+    // Process the command
+    processCommand(command);
+  }
+});
 
     function processCommand(command) {
       if (!loggedIn) {
