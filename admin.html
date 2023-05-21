@@ -82,7 +82,6 @@
     const terminalInput = document.getElementById('input');
     let loggedIn = false;
     let loadingProgress = 0;
-    let registerMode = false;
     let registerStep = 0;
     let username = '';
     let password = '';
@@ -99,28 +98,20 @@
     });
 
     function processCommand(command) {
-      if (registerMode) {
-        registerUser(command);
-        return;
-      }
-
       if (!loggedIn) {
-        // Check if the user wants to register
         if (command === 'register') {
-          terminalOutput.textContent += '\nEnter a username:';
-          registerMode = true;
           registerStep = 1;
-          return;
+          terminalOutput.textContent += '\nEnter a username:';
+        } else {
+          // Check username and password
+          if (!checkCredentials(command)) {
+            terminalOutput.textContent += '\nInvalid username or password.';
+            return;
+          }
+          loggedIn = true;
+          terminalOutput.textContent += '\nLogged in successfully.';
+          showLoadingScreen();
         }
-
-        // Check username and password
-        if (!checkCredentials(command)) {
-          terminalOutput.textContent += '\nInvalid username or password.';
-          return;
-        }
-        loggedIn = true;
-        terminalOutput.textContent += '\nLogged in successfully.';
-        showLoadingScreen();
         return;
       }
 
@@ -161,22 +152,6 @@
       return username === 'admin' && password === 'snakepeoplealphaomega';
     }
 
-    function registerUser(command) {
-      switch (registerStep) {
-        case 1:
-          username = command;
-          terminalOutput.textContent += '\nEnter a password:';
-          registerStep++;
-          break;
-        case 2:
-          password = command;
-          terminalOutput.textContent += '\nRegister successful.';
-          loggedIn = true;
-          showLoadingScreen();
-          break;
-      }
-    }
-
     function performCustomAction() {
       // Write your code here to define what the "loremipsum" command should do
       // For example:
@@ -188,29 +163,29 @@
 Art by Max Strandberg
 
       _______
-     / _   _ \
-    / (.) (.) \
+     / _   _ \\
+    / (.) (.) \\
    ( _________ )
     \`-V-|-V-'/
-     \   |   /
-      \  ^  /
-       \    \
-        \    \`-_
+     \\   |   /
+      \\  ^  /
+       \\    \\
+        \\    \`-_
          \`-_    \`-_
             \`-_    \`-_
-Max         \`-_    \`-_
-          \`-_    \`-_
-        \`-_    \`-_
-      \`-_    \`-_
+Max         \`-_
+          \`-_
+        \`-_
+      \`-_
       \`-_    \`-_
         \`-_    \`-_
           \`-_    \`-_
             \`-_    \`-_
             \`-_    \`-_
-  ,-=:_-_-_-_ _ _-_-_-_:=-.
- /=I=I=I=I=I=I=I=I=I=I=I=I=\
+  ,-=:_-_-_-_-_-_-_-_:=-.
+ /=I=I=I=I=I=I=I=I=I=I=I=I=\\
 |=I=I=I=I=I=I=I=I=I=I=I=I=I=|
-|I=I=I=I=I=I=I=I=I=I=I=I=I|
+|I=I=I=I=I=I=I=I=I=I=I=I=I=I|
 \\=I=I=I=I=I=I=I=I=I=I=I=I=I=/
  \\=I=I=I=I=I=I=I=I=I=I=I=I=/
   \\=I=I=I=I=I=I=I=I=I=I=I=/
@@ -228,10 +203,8 @@ Max         \`-_    \`-_
     }
 
     function showLoadingScreen() {
-      const loadingText = 'Loading data...';
-
-      // Disable input during loading
       terminalInput.disabled = true;
+      const loadingText = 'Loading data...';
 
       // Update loading progress every second
       const loadingInterval = setInterval(() => {
@@ -239,7 +212,7 @@ Max         \`-_    \`-_
 
         if (loadingProgress === 100) {
           clearInterval(loadingInterval);
-          terminalOutput.textContent += `\nRegister complete. Welcome, ${username}!`;
+          terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}!`;
           terminalInput.disabled = false;
         } else {
           loadingProgress += 10;
