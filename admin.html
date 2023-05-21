@@ -56,10 +56,11 @@
     .input {
       flex-grow: 1;
       background-color: transparent;
-      border: none;
+      border: white;
+      border-size:3px;
       outline: none;
       color: white;
-      font-size: 23px;
+      font-size: 18px;
       font-family: monospace;
     }
   </style>
@@ -83,6 +84,13 @@ const terminalInput = document.getElementById('input');
 let loggedIn = false;
 let loadingProgress = 0;
 let username = '';
+
+// Check if the user is already logged in by retrieving the username from local storage
+const storedUsername = localStorage.getItem('username');
+if (storedUsername) {
+  loggedIn = true;
+  username = storedUsername;
+}
 
 terminalInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' || e.key === 'Return') {
@@ -152,6 +160,9 @@ function registerUsername(usernameInput) {
 
   username = usernameInput;
   terminalOutput.textContent += '\nEnter a password:';
+
+  // Store the username in local storage
+  localStorage.setItem('username', username);
 }
 
 function registerPassword(passwordInput) {
@@ -163,6 +174,9 @@ function registerPassword(passwordInput) {
   terminalOutput.textContent += '\nRegister successful.';
   loggedIn = true;
   showLoadingScreen();
+
+  // Store the registration information in local storage
+  localStorage.setItem('username', username);
 }
 
 function performCustomAction() {
