@@ -94,12 +94,10 @@ if (storedUsername) {
 
 terminalInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' || e.key === 'Return') {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
     const command = terminalInput.value.trim();
     terminalInput.value = '';
-
-    // Process the command
-    processCommand(command);
+    processInput(command);
   }
 });
 
