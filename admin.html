@@ -49,12 +49,12 @@
 
     .input-container span {
       color: lime;
-      width: 100%;
+      width: 100px;
       margin-right: 25px;
     }
 
     .input {
-      width: 100%;
+      flex-grow: 1;
       background-color: transparent;
       border: none;
       outline: none;
@@ -82,9 +82,7 @@
     const terminalInput = document.getElementById('input');
     let loggedIn = false;
     let loadingProgress = 0;
-    let registerStep = 0;
     let username = '';
-    let password = '';
 
     terminalInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === 'Return') {
@@ -99,19 +97,21 @@
 
     function processCommand(command) {
       if (!loggedIn) {
+        // Check username and password
         if (command === 'register') {
-          registerStep = 1;
           terminalOutput.textContent += '\nEnter a username:';
+          return;
+        } else if (username === '') {
+          terminalOutput.textContent += '\nPlease register first.';
+          return;
+        } else if (username === 'guest') {
+          terminalOutput.textContent += `\nHello, ${username}! You're currently logged in as a guest.`;
         } else {
-          // Check username and password
-          if (!checkCredentials(command)) {
-            terminalOutput.textContent += '\nInvalid username or password.';
-            return;
-          }
-          loggedIn = true;
-          terminalOutput.textContent += '\nLogged in successfully.';
-          showLoadingScreen();
+          terminalOutput.textContent += `\nHello, ${username}! You're logged in.`;
         }
+
+        loggedIn = true;
+        showLoadingScreen();
         return;
       }
 
@@ -144,17 +144,28 @@
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    function checkCredentials(command) {
-      const credentials = command.split(' ');
-      const username = credentials[0];
-      const password = credentials[1];
+    function registerUsername(usernameInput) {
+      if (usernameInput === '') {
+        terminalOutput.textContent += '\nInvalid username. Please try again.';
+        return;
+      }
 
-      return username === 'admin' && password === 'snakepeoplealphaomega';
+      username = usernameInput;
+      terminalOutput.textContent += '\nEnter a password:';
+    }
+
+    function registerPassword(passwordInput) {
+      if (passwordInput === '') {
+        terminalOutput.textContent += '\nInvalid password. Please try again.';
+        return;
+      }
+
+      terminalOutput.textContent += '\nRegister successful.';
+      loggedIn = true;
+      showLoadingScreen();
     }
 
     function performCustomAction() {
-      // Write your code here to define what the "loremipsum" command should do
-      // For example:
       terminalOutput.textContent += '\nCustom action executed!';
     }
 
@@ -171,18 +182,18 @@ Art by Max Strandberg
       \\  ^  /
        \\    \\
         \\    \`-_
-         \`-_    \`-_
-            \`-_    \`-_
-Max         \`-_
-          \`-_
-        \`-_
-      \`-_
-      \`-_    \`-_
-        \`-_    \`-_
-          \`-_    \`-_
-            \`-_    \`-_
-            \`-_    \`-_
-  ,-=:_-_-_-_-_-_-_-_:=-.
+         \`-_    -_
+            -_    -_
+Max         _-    _-
+          _-    _-
+        _-    _-
+      _-    _-
+      -_    -_
+        -_    -_
+          -_    -_
+            -_    -_
+            _-    _-
+  ,-=:_-_-_-_ _ _-_-_-_:=-.
  /=I=I=I=I=I=I=I=I=I=I=I=I=\\
 |=I=I=I=I=I=I=I=I=I=I=I=I=I=|
 |I=I=I=I=I=I=I=I=I=I=I=I=I=I|
@@ -203,7 +214,6 @@ Max         \`-_
     }
 
     function showLoadingScreen() {
-      terminalInput.disabled = true;
       const loadingText = 'Loading data...';
 
       // Update loading progress every second
@@ -212,12 +222,15 @@ Max         \`-_
 
         if (loadingProgress === 100) {
           clearInterval(loadingInterval);
-          terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}!`;
+          terminalOutput.textContent += '\nSign in complete. Welcome back, [username]'; // Replace [username] with the actual username
           terminalInput.disabled = false;
+          terminalInput.focus();
         } else {
           loadingProgress += 10;
         }
       }, 1000);
+
+      terminalInput.disabled = true; // Disable input during loading
     }
 
     function goToHome() {
