@@ -49,7 +49,6 @@
 
     .input-container span {
       color: lime;
-      width: 100%;
       margin-right: 25px;
     }
 
@@ -83,16 +82,16 @@
     let loggedIn = false;
     let loadingProgress = 0;
 
-terminalInput.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter' || e.key === 'Return') {
-    e.preventDefault(); // Prevent the default form submission
-    const command = terminalInput.value.trim();
-    terminalInput.value = '';
+    terminalInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === 'Return') {
+        e.preventDefault(); // Prevent the default form submission
+        const command = terminalInput.value.trim();
+        terminalInput.value = '';
 
-    // Process the command
-    processCommand(command);
-  }
-});
+        // Process the command
+        processCommand(command);
+      }
+    });
 
     function processCommand(command) {
       if (!loggedIn) {
@@ -155,15 +154,15 @@ terminalInput.addEventListener('keydown', function (e) {
 Art by Max Strandberg
 
       _______
-     / _   _ \
-    / (.) (.) \
+     / _   _ \\
+    / (.) (.) \\
    ( _________ )
-    \`-V-|-V-'/
-     \   |   /
-      \  ^  /
-       \    \
-        \    `-_
-         `-_    -_
+    \`-V-|-V-'/ 
+     \\   |   /  
+      \\  ^  /   
+       \\    \\   
+        \\    \`-_
+         \`-_    -_
             -_    -_
 Max         _-    _-
           _-    _-
@@ -175,15 +174,15 @@ Max         _-    _-
             -_    -_
             _-    _-
   ,-=:_-_-_-_ _ _-_-_-_:=-.
- /=I=I=I=I=I=I=I=I=I=I=I=I=\
+ /=I=I=I=I=I=I=I=I=I=I=I=I=\\
 |=I=I=I=I=I=I=I=I=I=I=I=I=I=|
 |I=I=I=I=I=I=I=I=I=I=I=I=I=I|
-\=I=I=I=I=I=I=I=I=I=I=I=I=I=/
- \=I=I=I=I=I=I=I=I=I=I=I=I=/
-  \=I=I=I=I=I=I=I=I=I=I=I=/
-   \=I=I=I=I=I=I=I=I=I=I=/
-    \=I=I=I=I=I=I=I=I=I=/
-     `================='
+\\=I=I=I=I=I=I=I=I=I=I=I=I=I=/
+ \\=I=I=I=I=I=I=I=I=I=I=I=I=/
+  \\=I=I=I=I=I=I=I=I=I=I=I=/
+   \\=I=I=I=I=I=I=I=I=I=I=/
+    \\=I=I=I=I=I=I=I=I=I=/
+     \`================='
 `;
 
       terminalOutput.textContent += `\n${snakeArt}`;
