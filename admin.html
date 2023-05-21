@@ -207,6 +207,14 @@ function registerPassword(passwordInput) {
   localStorage.setItem('username', username);
 }
 
+  terminalOutput.textContent += '\nRegister successful.';
+  loggedIn = true;
+  showLoadingScreen();
+
+  // Store the registration information in local storage
+  localStorage.setItem('username', username);
+}
+
 function performCustomAction() {
   terminalOutput.textContent += '\nCustom action executed!';
 }
