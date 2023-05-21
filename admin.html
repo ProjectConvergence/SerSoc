@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Terminal</title>
-  <link rel="icon" href="https://github.com/ProjectConvergence/SerSoc/blob/main/images/3272088.svg" type="image/svg+xml">
+  <link rel="icon" href="images/327088.svg" type="images/svg+xml">
   <style>
     body {
       background-color: black;
@@ -58,7 +58,7 @@
       flex-grow: 1;
       background-color: transparent;
       border: white;
-      border-size:3px;
+      border-width: 3px;
       outline: none;
       color: white;
       font-size: 18px;
@@ -80,148 +80,110 @@
   </div>
 
   <script>
-const terminalOutput = document.getElementById('output');
-const terminalInput = document.getElementById('input');
-let loggedIn = false;
-let loadingProgress = 0;
-let username = '';
+    const terminalOutput = document.getElementById('output');
+    const terminalInput = document.getElementById('input');
+    let loggedIn = false;
+    let loadingProgress = 0;
+    let username = '';
 
-// Check if the user is already logged in by retrieving the username from local storage
-const storedUsername = localStorage.getItem('username');
-if (storedUsername) {
-  loggedIn = true;
-  username = storedUsername;
-}
-
-terminalInput.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter' || e.key === 'Return') {
-    e.preventDefault();
-    const command = terminalInput.value.trim();
-    terminalInput.value = '';
-    processInput(command);
-  }
-});
-
-function processCommand(command) {
-  if (!loggedIn) {
-    // Check username and password
-    if (command === 'register') {
-      terminalOutput.textContent += '\nEnter a username:';
-      return;
-    } else if (username === '') {
-      terminalOutput.textContent += '\nPlease register first.';
-      return;
-    } else if (username === 'guest') {
-      terminalOutput.textContent += `\nHello, ${username}! You're currently logged in as a guest.`;
-    } else {
-      terminalOutput.textContent += `\nHello, ${username}! You're logged in.`;
+    // Check if the user is already logged in by retrieving the username from local storage
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      loggedIn = true;
+      username = storedUsername;
     }
 
-    loggedIn = true;
-    showLoadingScreen();
-    return;
-  }
+    terminalInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === 'Return') {
+        e.preventDefault();
+        const command = terminalInput.value.trim();
+        terminalInput.value = '';
+        processInput(command);
+      }
+    });
 
-  switch (command) {
-    case 'help':
-      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
-      break;
-    case 'time':
-      const date = new Date();
-      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-      break;
-    case 'greet':
-      terminalOutput.textContent += '\nHello there!';
-      break;
-    case 'loremipsum':
-      performCustomAction();
-      break;
-    case 'snek':
-      performSnekCommand();
-      break;
-    case 'clear':
-      clearTerminal();
-      break;
-    default:
-      terminalOutput.textContent += `\nCommand not found: ${command}`;
-      break;
-  }
+    function processCommand(command) {
+      if (!loggedIn) {
+        // Check username and password
+        if (command === 'register') {
+          terminalOutput.textContent += '\nEnter a username:';
+          return;
+        } else if (username === '') {
+          terminalOutput.textContent += '\nPlease register first.';
+          return;
+        } else if (username === 'guest') {
+          terminalOutput.textContent += `\nHello, ${username}! You're currently logged in as a guest.`;
+        } else {
+          terminalOutput.textContent += `\nHello, ${username}! You're logged in.`;
+        }
 
-  // Scroll to the bottom of the terminal
-  terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
+        loggedIn = true;
+        showLoadingScreen();
+        return;
+      }
 
-function registerUsername(usernameInput) {
-  if (usernameInput.trim() === '') {
-    terminalOutput.textContent += '\nInvalid username. Please try again.';
-    return;
-  }
+      switch (command) {
+        case 'help':
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
+          break;
+        case 'time':
+          const date = new Date();
+          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+          break;
+        case 'greet':
+          terminalOutput.textContent += '\nHello there!';
+          break;
+        case 'loremipsum':
+          performCustomAction();
+          break;
+        case 'snek':
+          performSnekCommand();
+          break;
+        case 'clear':
+          clearTerminal();
+          break;
+        default:
+          terminalOutput.textContent += `\nCommand not found: ${command}`;
+          break;
+      }
 
-  username = usernameInput.trim();
-  terminalOutput.textContent += '\nEnter a password:';
+      // Scroll to the bottom of the terminal
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
 
-  // Store the username in local storage
-  localStorage.setItem('username', username);
-}
+    function registerUsername(usernameInput) {
+      if (usernameInput.trim() === '') {
+        terminalOutput.textContent += '\nInvalid username. Please try again.';
+        return;
+      }
 
-function registerPassword(passwordInput) {
-  if (passwordInput.trim() === '') {
-    terminalOutput.textContent += '\nInvalid password. Please try again.';
-    return;
-  }
+      username = usernameInput.trim();
+      terminalOutput.textContent += '\nEnter a password:';
 
-  terminalOutput.textContent += '\nRegister successful.';
-  loggedIn = true;
-  showLoadingScreen();
+      // Store the username in local storage
+      localStorage.setItem('username', username);
+    }
 
-  // Store the registration information in local storage
-  localStorage.setItem('username', username);
-}
+    function registerPassword(passwordInput) {
+      if (passwordInput.trim() === '') {
+        terminalOutput.textContent += '\nInvalid password. Please try again.';
+        return;
+      }
 
+      terminalOutput.textContent += '\nRegister successful.';
+      loggedIn = true;
+      showLoadingScreen();
 
-  terminalOutput.textContent += '\nRegister successful.';
-  loggedIn = true;
-  showLoadingScreen();
+      // Store the registration information in local storage
+      localStorage.setItem('username', username);
+    }
 
-  // Store the registration information in local storage
-  localStorage.setItem('username', username);
-}
+    function performCustomAction() {
+      terminalOutput.textContent += '\nCustom action executed!';
+    }
 
-  username = usernameInput;
-  terminalOutput.textContent += '\nEnter a password:';
-
-  // Store the username in local storage
-  localStorage.setItem('username', username);
-}
-
-function registerPassword(passwordInput) {
-  if (passwordInput === '') {
-    terminalOutput.textContent += '\nInvalid password. Please try again.';
-    return;
-  }
-
-  terminalOutput.textContent += '\nRegister successful.';
-  loggedIn = true;
-  showLoadingScreen();
-
-  // Store the registration information in local storage
-  localStorage.setItem('username', username);
-}
-
-  terminalOutput.textContent += '\nRegister successful.';
-  loggedIn = true;
-  showLoadingScreen();
-
-  // Store the registration information in local storage
-  localStorage.setItem('username', username);
-}
-
-function performCustomAction() {
-  terminalOutput.textContent += '\nCustom action executed!';
-}
-
-function performSnekCommand() {
-  const snakeArt = `
+    function performSnekCommand() {
+      const snakeArt = `
 Art by Max Strandberg
 
   _______
@@ -254,59 +216,59 @@ Max      _-    _-
    \\=I=I=I=I=I=I=I=I=I=I=/
     \\=I=I=I=I=I=I=I=I=I=/
      \`================='
-`;
+  `;
 
-  terminalOutput.textContent += `\n${snakeArt}`;
-  terminalOutput.textContent += '\nSFRS APPROVED!';
-}
-
-function clearTerminal() {
-  terminalOutput.textContent = ''; // Clear the terminal output
-}
-
-function showLoadingScreen() {
-  const loadingText = 'Loading data...';
-
-  // Update loading progress every second
-  const loadingInterval = setInterval(() => {
-    terminalOutput.textContent += `\n${loadingText} ${loadingProgress}%`;
-
-    if (loadingProgress === 100) {
-      clearInterval(loadingInterval);
-      terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}`;
-      terminalInput.disabled = false;
-      terminalInput.focus();
-    } else {
-      loadingProgress += 10;
+      terminalOutput.textContent += `\n${snakeArt}`;
+      terminalOutput.textContent += '\nSFRS APPROVED!';
     }
-  }, 1000);
 
-  terminalInput.disabled = true; // Disable input during loading
-}
-
-function goToHome() {
-  window.location.href = 'index.html';
-}
-
-function processInput(input) {
-  if (!loggedIn) {
-    if (username === '') {
-      registerUsername(input);
-    } else {
-      registerPassword(input);
+    function clearTerminal() {
+      terminalOutput.textContent = ''; // Clear the terminal output
     }
-  } else {
-    // Process the command
-    processCommand(input);
-  }
-}
 
-terminalInput.addEventListener('change', function (e) {
-  const input = e.target.value.trim();
-  e.target.value = '';
+    function showLoadingScreen() {
+      const loadingText = 'Loading data...';
 
-  processInput(input);
-});
+      // Update loading progress every second
+      const loadingInterval = setInterval(() => {
+        terminalOutput.textContent += `\n${loadingText} ${loadingProgress}%`;
+
+        if (loadingProgress === 100) {
+          clearInterval(loadingInterval);
+          terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}`;
+          terminalInput.disabled = false;
+          terminalInput.focus();
+        } else {
+          loadingProgress += 10;
+        }
+      }, 1000);
+
+      terminalInput.disabled = true; // Disable input during loading
+    }
+
+    function goToHome() {
+      window.location.href = 'index.html';
+    }
+
+    function processInput(input) {
+      if (!loggedIn) {
+        if (username === '') {
+          registerUsername(input);
+        } else {
+          registerPassword(input);
+        }
+      } else {
+        // Process the command
+        processCommand(input);
+      }
+    }
+
+    terminalInput.addEventListener('change', function (e) {
+      const input = e.target.value.trim();
+      e.target.value = '';
+
+      processInput(input);
+    });
   </script>
 </body>
 
