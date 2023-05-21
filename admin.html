@@ -78,123 +78,123 @@
   </div>
 
   <script>
-    const terminalOutput = document.getElementById('output');
-    const terminalInput = document.getElementById('input');
-    let loggedIn = false;
-    let loadingProgress = 0;
-    let username = '';
+const terminalOutput = document.getElementById('output');
+const terminalInput = document.getElementById('input');
+let loggedIn = false;
+let loadingProgress = 0;
+let username = '';
 
-    terminalInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === 'Return') {
-        e.preventDefault(); // Prevent the default form submission
-        const command = terminalInput.value.trim();
-        terminalInput.value = '';
+terminalInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' || e.key === 'Return') {
+    e.preventDefault(); // Prevent the default form submission
+    const command = terminalInput.value.trim();
+    terminalInput.value = '';
 
-        // Process the command
-        processCommand(command);
-      }
-    });
+    // Process the command
+    processCommand(command);
+  }
+});
 
-    function processCommand(command) {
-      if (!loggedIn) {
-        // Check username and password
-        if (command === 'register') {
-          terminalOutput.textContent += '\nEnter a username:';
-          return;
-        } else if (username === '') {
-          terminalOutput.textContent += '\nPlease register first.';
-          return;
-        } else if (username === 'guest') {
-          terminalOutput.textContent += `\nHello, ${username}! You're currently logged in as a guest.`;
-        } else {
-          terminalOutput.textContent += `\nHello, ${username}! You're logged in.`;
-        }
-
-        loggedIn = true;
-        showLoadingScreen();
-        return;
-      }
-
-      switch (command) {
-        case 'help':
-          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
-          break;
-        case 'time':
-          const date = new Date();
-          terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
-          break;
-        case 'greet':
-          terminalOutput.textContent += '\nHello there!';
-          break;
-        case 'loremipsum':
-          performCustomAction();
-          break;
-        case 'snek':
-          performSnekCommand();
-          break;
-        case 'clear':
-          clearTerminal();
-          break;
-        default:
-          terminalOutput.textContent += `\nCommand not found: ${command}`;
-          break;
-      }
-
-      // Scroll to the bottom of the terminal
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+function processCommand(command) {
+  if (!loggedIn) {
+    // Check username and password
+    if (command === 'register') {
+      terminalOutput.textContent += '\nEnter a username:';
+      return;
+    } else if (username === '') {
+      terminalOutput.textContent += '\nPlease register first.';
+      return;
+    } else if (username === 'guest') {
+      terminalOutput.textContent += `\nHello, ${username}! You're currently logged in as a guest.`;
+    } else {
+      terminalOutput.textContent += `\nHello, ${username}! You're logged in.`;
     }
 
-    function registerUsername(usernameInput) {
-      if (usernameInput === '') {
-        terminalOutput.textContent += '\nInvalid username. Please try again.';
-        return;
-      }
+    loggedIn = true;
+    showLoadingScreen();
+    return;
+  }
 
-      username = usernameInput;
-      terminalOutput.textContent += '\nEnter a password:';
-    }
+  switch (command) {
+    case 'help':
+      terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
+      break;
+    case 'time':
+      const date = new Date();
+      terminalOutput.textContent += `\nCurrent time: ${date.toLocaleTimeString()}`;
+      break;
+    case 'greet':
+      terminalOutput.textContent += '\nHello there!';
+      break;
+    case 'loremipsum':
+      performCustomAction();
+      break;
+    case 'snek':
+      performSnekCommand();
+      break;
+    case 'clear':
+      clearTerminal();
+      break;
+    default:
+      terminalOutput.textContent += `\nCommand not found: ${command}`;
+      break;
+  }
 
-    function registerPassword(passwordInput) {
-      if (passwordInput === '') {
-        terminalOutput.textContent += '\nInvalid password. Please try again.';
-        return;
-      }
+  // Scroll to the bottom of the terminal
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
 
-      terminalOutput.textContent += '\nRegister successful.';
-      loggedIn = true;
-      showLoadingScreen();
-    }
+function registerUsername(usernameInput) {
+  if (usernameInput === '') {
+    terminalOutput.textContent += '\nInvalid username. Please try again.';
+    return;
+  }
 
-    function performCustomAction() {
-      terminalOutput.textContent += '\nCustom action executed!';
-    }
+  username = usernameInput;
+  terminalOutput.textContent += '\nEnter a password:';
+}
 
-    function performSnekCommand() {
-      const snakeArt = `
+function registerPassword(passwordInput) {
+  if (passwordInput === '') {
+    terminalOutput.textContent += '\nInvalid password. Please try again.';
+    return;
+  }
+
+  terminalOutput.textContent += '\nRegister successful.';
+  loggedIn = true;
+  showLoadingScreen();
+}
+
+function performCustomAction() {
+  terminalOutput.textContent += '\nCustom action executed!';
+}
+
+function performSnekCommand() {
+  const snakeArt = `
 Art by Max Strandberg
 
-      _______
-     / _   _ \\
-    / (.) (.) \\
-   ( _________ )
-    \`-V-|-V-'/
-     \\   |   /
-      \\  ^  /
-       \\    \\
-        \\    \`-_
-         \`-_    -_
-            -_    -_
-Max         _-    _-
-          _-    _-
-        _-    _-
-      _-    _-
-      -_    -_
-        -_    -_
-          -_    -_
-            -_    -_
-            _-    _-
-  ,-=:_-_-_-_ _ _-_-_-_:=-.
- /=I=I=I=I=I=I=I=I=I=I=I=I=\\
+  _______
+ / _   _ \\
+/ (.) (.) \\
+( _________ )
+ \`-V-|-V-'/
+  \\   |   /
+   \\  ^  /
+    \\    \\
+     \\    \`-_
+      \`-_    -_
+         -_    -_
+Max      _-    _-
+       _-    _-
+     _-    _-
+   _-    _-
+   -_    -_
+     -_    -_
+       -_    -_
+         -_    -_
+         _-    _-
+,-=:_-_-_-_ _ _-_-_-_:=-.
+/=I=I=I=I=I=I=I=I=I=I=I=I=\\
 |=I=I=I=I=I=I=I=I=I=I=I=I=I=|
 |I=I=I=I=I=I=I=I=I=I=I=I=I=I|
 \\=I=I=I=I=I=I=I=I=I=I=I=I=I=/
@@ -205,37 +205,54 @@ Max         _-    _-
      \`================='
 `;
 
-      terminalOutput.textContent += `\n${snakeArt}`;
-      terminalOutput.textContent += '\nSFRS APPROVED!';
+  terminalOutput.textContent += `\n${snakeArt}`;
+  terminalOutput.textContent += '\nSFRS APPROVED!';
+}
+
+function clearTerminal() {
+  terminalOutput.textContent = ''; // Clear the terminal output
+}
+
+function showLoadingScreen() {
+  const loadingText = 'Loading data...';
+
+  // Update loading progress every second
+  const loadingInterval = setInterval(() => {
+    terminalOutput.textContent += `\n${loadingText} ${loadingProgress}%`;
+
+    if (loadingProgress === 100) {
+      clearInterval(loadingInterval);
+      terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}`;
+      terminalInput.disabled = false;
+      terminalInput.focus();
+    } else {
+      loadingProgress += 10;
     }
+  }, 1000);
 
-    function clearTerminal() {
-      terminalOutput.textContent = ''; // Clear the terminal output
+  terminalInput.disabled = true; // Disable input during loading
+}
+
+function goToHome() {
+  window.location.href = 'index.html';
+}
+
+function processInput(input) {
+  if (!loggedIn) {
+    if (username === '') {
+      registerUsername(input);
+    } else {
+      registerPassword(input);
     }
+  }
+}
 
-    function showLoadingScreen() {
-      const loadingText = 'Loading data...';
+terminalInput.addEventListener('change', function (e) {
+  const input = e.target.value.trim();
+  e.target.value = '';
 
-      // Update loading progress every second
-      const loadingInterval = setInterval(() => {
-        terminalOutput.textContent += `\n${loadingText} ${loadingProgress}%`;
-
-        if (loadingProgress === 100) {
-          clearInterval(loadingInterval);
-          terminalOutput.textContent += '\nSign in complete. Welcome back, [username]'; // Replace [username] with the actual username
-          terminalInput.disabled = false;
-          terminalInput.focus();
-        } else {
-          loadingProgress += 10;
-        }
-      }, 1000);
-
-      terminalInput.disabled = true; // Disable input during loading
-    }
-
-    function goToHome() {
-      window.location.href = 'index.html';
-    }
+  processInput(input);
+});
   </script>
 </body>
 
