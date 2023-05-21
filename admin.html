@@ -91,6 +91,7 @@
     if (storedUsername) {
       loggedIn = true;
       username = storedUsername;
+      showPrompt();
     }
 
     terminalInput.addEventListener('keydown', function (e) {
@@ -104,9 +105,11 @@
 
     function processCommand(command) {
       if (!loggedIn) {
-        // Check username and password
         if (command === 'register') {
           terminalOutput.textContent += '\nEnter a username:';
+          return;
+        } else if (command === 'logout') {
+          logout();
           return;
         } else if (username === '') {
           terminalOutput.textContent += '\nPlease register first.';
@@ -124,7 +127,7 @@
 
       switch (command) {
         case 'help':
-          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear';
+          terminalOutput.textContent += '\nAvailable commands: help, time, greet, loremipsum, snek, clear, logout';
           break;
         case 'time':
           const date = new Date();
@@ -141,6 +144,9 @@
           break;
         case 'clear':
           clearTerminal();
+          break;
+        case 'logout':
+          logout();
           break;
         default:
           terminalOutput.textContent += `\nCommand not found: ${command}`;
@@ -216,7 +222,7 @@ Max      _-    _-
    \\=I=I=I=I=I=I=I=I=I=I=/
     \\=I=I=I=I=I=I=I=I=I=/
      \`================='
-  `;
+`;
 
       terminalOutput.textContent += `\n${snakeArt}`;
       terminalOutput.textContent += '\nSFRS APPROVED!';
@@ -238,12 +244,25 @@ Max      _-    _-
           terminalOutput.textContent += `\nSign in complete. Welcome back, ${username}`;
           terminalInput.disabled = false;
           terminalInput.focus();
+          showPrompt();
         } else {
           loadingProgress += 10;
         }
       }, 1000);
 
       terminalInput.disabled = true; // Disable input during loading
+    }
+
+    function showPrompt() {
+      terminalOutput.textContent += `\n${username}$`;
+    }
+
+    function logout() {
+      loggedIn = false;
+      username = '';
+      localStorage.removeItem('username');
+      clearTerminal();
+      terminalOutput.textContent += '\nYou have been logged out. Please log in to continue.';
     }
 
     function goToHome() {
@@ -258,18 +277,15 @@ Max      _-    _-
           registerPassword(input);
         }
       } else {
-        // Process the command
         processCommand(input);
       }
     }
 
-    terminalInput.addEventListener('change', function (e) {
-      const input = e.target.value.trim();
-      e.target.value = '';
+    function startTerminal() {
+      terminalInput.focus();
+    }
 
-      processInput(input);
-    });
-
+    startTerminal();
   </script>
 </body>
 
