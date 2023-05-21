@@ -153,10 +153,40 @@ function processCommand(command) {
 }
 
 function registerUsername(usernameInput) {
-  if (usernameInput === '') {
+  if (usernameInput.trim() === '') {
     terminalOutput.textContent += '\nInvalid username. Please try again.';
     return;
   }
+
+  username = usernameInput.trim();
+  terminalOutput.textContent += '\nEnter a password:';
+
+  // Store the username in local storage
+  localStorage.setItem('username', username);
+}
+
+function registerPassword(passwordInput) {
+  if (passwordInput.trim() === '') {
+    terminalOutput.textContent += '\nInvalid password. Please try again.';
+    return;
+  }
+
+  terminalOutput.textContent += '\nRegister successful.';
+  loggedIn = true;
+  showLoadingScreen();
+
+  // Store the registration information in local storage
+  localStorage.setItem('username', username);
+}
+
+
+  terminalOutput.textContent += '\nRegister successful.';
+  loggedIn = true;
+  showLoadingScreen();
+
+  // Store the registration information in local storage
+  localStorage.setItem('username', username);
+}
 
   username = usernameInput;
   terminalOutput.textContent += '\nEnter a password:';
